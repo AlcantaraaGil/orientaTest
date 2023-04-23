@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/signup.css">
+    <title>orientaTest</title>
+</head>
+<body>
+    <div class="login-screen">
+        <div class="main-container">
+            <div class="arrowback">
+                <a href="/login">
+                    <img src="https://cdn-icons-png.flaticon.com/512/507/507257.png" alt="">
+                </a>
+            </div>
+            <div class="createAccount">
+                <h1>Crear Cuenta</h1>
+            </div>
+            <form action="/register" method="POST">
+                <div class="fields">
+                    <label for="name">Nombre</label>
+                <input type="text" id="name" name="name" required placeholder="Gilberto">
+                </div>
+                <div class="fields">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Yourmail@mail.com">
+                </div>
+                <div class="fields">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required placeholder="********">
+                </div>
+                <div class="btn-signin">
+                    <button type="submit" >Registrarme</button>
+                </div>
+            </form>
+           
+            <div class="submit-buttons">
+                <div class="forget-signup">
+                    <div class="paola">Ya tienes una cuenta?<a href="/login">Inicia Sesion</a></div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

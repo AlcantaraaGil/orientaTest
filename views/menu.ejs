@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/menu.css">
+    <title>orientaTest</title>
+</head>
+<body>
+    <div class="login-screen">
+        <div class="main-container">
+            
+            <div class="image-container">
+                <div class="logo">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1786/1786985.png" alt="">
+                    <p>OrientaTest</p>
+                </div>
+                <div class="logoutbtn">
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button type="submit">Cerrar sesion</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="welcomeCard">
+                <div class="w">
+                    <p class="wcUser">Hola <%= name %></p>
+                    <p class="wcTxt">¿Estas listo para descubrir tu futuro?</p>
+                </div>
+            </div>
+
+            <div class="testsContainer">
+                <div class="tests">
+                    <div class="item1">
+                        <p>Elige un test</p>
+                    </div>
+                    <div class="item2">
+                        <div class="tst">
+                            <div class="imgtst">
+                                <div class="bg">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/2995/2995455.png" alt="">
+                                </div>
+                            </div>
+                            <div class="txttst">
+                                <p>Test vocacional</p>
+                                <p>Chaside</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item3">
+                        <div class="tst">
+                            <div class="imgtst">
+                                <div class="bg">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/6556/6556115.png" alt="">
+                                </div>
+                            </div>
+                            <div class="txttst">
+                                <p>Test de personalidad</p>
+                                <p>Holland</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item4">
+                        <div class="tst">
+                            <div class="imgtst">
+                                <div class="bg">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/8385/8385271.png" alt="">
+                                </div>
+                            </div>
+                            <div class="txttst">
+                                <p>Test de aptitudes</p>
+                                <p>Herrera</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/loginstyle.css" type="text/css">
+    <title>orientaTest</title>
+</head>
+<body>
+    <% if (messages.error){%>
+            <script>
+                alert("<%= messages.error %>");
+            </script>
+    <% } %>
+    <div class="login-screen">
+        <div class="main-container">
+            <div class="image-container">
+                <div class="rectangle">    
+                    <img src="https://img.freepik.com/vector-gratis/ilustracion-concepto-aprendizaje_114360-3454.jpg?w=740&t=st=1680910637~exp=1680911237~hmac=12a5f4bec0762e6882cf7266864b1502ea92a8c483986fc87b8c1216479be7b3" alt="">
+                    <div class="rotation"></div>
+                </div>
+            </div>
+            <div class="welcome"><h1>¡Bienvenido de nuevo!</h1></div>
+            <div class="data-container">
+                <div class="user-data">
+                    <form action="/login" method="POST">
+                    <div class="email">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="YourMail@mail.com">
+                    </div>
+                    <div class="password">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" required placeholder="********">
+                    </div>
+                    <div class="btn-signin">
+                        <button type="submit">Iniciar Sesion</button>
+                    </div>
+                    
+                </div>
+            </form>
+            </div>
+
+
+            <div class="submit-buttons">
+                
+                <div class="forget-signup">
+                    <div><a href="#"></a></div>
+                    <div class="paola">No tienes una cuenta?<a href="/register">Registrate</a></div>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+</body>
+</html>
