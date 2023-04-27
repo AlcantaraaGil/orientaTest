@@ -99,6 +99,56 @@ if (process.env.NODE_ENV !== 'production') {
   
     res.redirect('/login');
   }
+
+//acceder a iniciar test
+app.get('/test', checkAuthenticated, (req, res) => {
+  res.render('testInfo.ejs');
+});
+
+
+//acceder a Preguntas
+app.get('/preguntas', checkAuthenticated, async (req, res) => {
+  var nump = 1;
+  try {
+    const pregunta = await client.db("oritest").collection("cuestionarios").findOne({"preguntas.pregunta_id": nump.toString()}, {"preguntas.$": 1});
+    if (pregunta && pregunta.preguntas && pregunta.preguntas.length > 0) {
+      var p = pregunta.preguntas[0].texto;
+      console.log(p);
+      res.render('preguntas.ejs', {numpregunta: nump,pregunta: p});
+    } else {
+      // Manejar el caso en que la pregunta no existe
+      res.send("La pregunta no existe");
+    }
+  } catch (e) {
+    // Manejar la excepción
+    console.error(e);
+    res.send("Error al obtener la pregunta");
+  } 
+  });
+
+app.post('/preguntas', checkAuthenticated, async (req,res) => {
+  var npreg = req.body.nump;
+  npreg++;
+  try {
+    console.log(npreg);
+    const pregunta = await client.db("oritest").collection("cuestionarios").findOne({ "preguntas.pregunta_id": npreg.toString()});
+    if (pregunta && pregunta.preguntas && pregunta.preguntas.length > 0) {
+      var m = pregunta.preguntas[npreg-1].texto;
+      res.render('preguntas.ejs', {numpregunta: npreg,pregunta: m});
+    } else {
+      // Manejar el caso en que la pregunta no existe
+      res.send("La pregunta no existe");
+    }
+  } catch (e) {
+    // Manejar la excepción
+    console.error(e);
+    res.send("Error al obtener la pregunta");
+  } 
+});
+
+
+
+
   
   function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -126,4 +176,7 @@ if (process.env.NODE_ENV !== 'production') {
     const result = await client.db("oritest").collection("users").insertOne(newUser);
     console.log(`New user created with the following id: ${result.insertedId}`);
   }
+  
+
+
   

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--<link rel="stylesheet" href="/css/preguntas.css" type="stylesheet"> --> 
+    <link rel="stylesheet" href="/css/preguntas.css" type="text/css">
+    <title>orientaTest</title>
+</head>
+<body>
+    <div class="login-screen">
+        <div class="main-container">
+            <div class="image-container">
+                <div class="rectangle">
+                    <form action="/preguntas" method="post">
+                    <div class="progreso">
+                        <input type="hidden" name="nump" value="<%=numpregunta%>"/>
+                        <p><%=numpregunta%> de 98</p>
+                        <div class="progress-bar">
+                            <p>%%%%%%--------------</p>
+                        </div>
+                    </div>
+                    <div class="gc">
+                        <div class="preg">
+                            <div class="txtp">
+                                <p><%=pregunta%></p>
+                            </div>
+
+                            <div class="options">
+                                <div class="btn-1">
+                                    <p>SI</p>
+                                </div>
+                                <div class="btn-2">
+                                    <p>NO</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rotation"></div>
+                </div>                     
+            </div>
+            <div class="submit-buttons">
+                <div class="btn-signin">
+                    <input type="submit" value="Siguiente">
+                </div>
+                
+            </div>
+        </form>
+
+        </div>
+    </div>
+</body>
+</html>
