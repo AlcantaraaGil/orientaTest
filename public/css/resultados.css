@@ -1,0 +1,210 @@
+body{
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #151522;
+}
+
+.login-screen{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.main-container{
+    width: 400px;
+    height: 100vh;
+}
+
+
+.arrowback{
+    width: 100%;
+    height: 300px;
+    padding-top: 36px;
+}
+.bb{
+    display: flex;
+}
+.image-container img{
+    width: 18px;
+    height: 18px;
+    margin-top: 11px;
+    margin-left: 18px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+.tstChaside{
+    position: relative;
+    z-index: 2;
+}
+
+.tstChaside p{
+    margin: 0;
+    padding-left: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.tstInfo{
+    margin-top: 40px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: grid;
+    place-content: center;   
+}
+.containerInfo{
+    margin-top: 40px;
+    width: 325px;
+    height: 383px;
+    background-color: #fff;
+    z-index: 2;
+    border: solid #82A3A1 1px;
+    border-radius: 10px ;
+    text-align: center;
+    font-size: 17px;
+    display: grid;
+    place-content: center;
+}
+
+
+.interes{
+    margin-bottom: 30px;
+}
+
+
+.area{
+    width: 100%;
+    height: 90px;
+    text-align: center;
+    font-weight:700;
+    color: #1A2E35;
+}
+
+.areasinfo{
+    width: 277px;
+    height: 240px;
+    border-radius:10px;
+    background-color: rgba(130, 163, 161, 0.4);
+    display: grid;
+    place-content: center;
+}
+
+.areasinfo ul{
+    padding: 0;
+    list-style: none;
+}
+
+.relleno{
+    width: 30px;
+    height: 30px;
+}
+.tstex{
+    margin-top: -50px;
+    width: 100%;
+    height: 370px;
+    display: grid;
+    place-items: center;
+}
+
+.tsttxt{
+    width: 285px;
+    height: 370px;
+    background-color: #fff;
+    z-index: 2;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px #888888;
+    text-align: left;
+    font-size: 17px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.tsttxt li{
+    list-style: decimal;
+}
+
+
+.submit-buttons{
+    width: 100%;
+    margin-top: 20px;
+    height: 100px;
+    display: grid;
+    place-items: center;
+    position: relative;
+}
+
+.btn-signin{
+    grid-row: 1; /* coloca el botón en la primera fila */
+    width: 325px;
+    height: 50px;
+    background-color: #1A2E35;
+    border-radius: 20px;
+    display: grid;
+    place-items: center;
+    margin: 0;
+}
+
+.btn-signin p{
+    color: #fff;
+}
+
+
+
+@media (max-width: 414px){
+
+    .main-container{
+        width: 100vw;
+        height: 100vh;
+    }
+    .rotation{
+        background-color: #5ae4a8;}
+    
+}
+
+@media (max-width: 375px) and (max-height: 667px) {
+  .image-container{
+        display: none;
+    }
+    .welcome{
+        margin: 70px;
+    }
+    .welcome h1{
+        text-align: center;
+    }
+}
+
+@media (max-width: 360px) and (max-height: 740px){
+    .email p, .password p{
+        margin: 5px;
+    }
+    .data-container{
+    height: 150px;
+    }
+    .btn-signin{
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 540px) and (max-height: 720px){
+    .image-container{
+        display: none;
+    }
+    .welcome{
+        margin: 70px;
+    }
+    .welcome h1{
+        text-align: center;
+    }
+}
+
+@media (max-width: 1024px) and (max-height: 600px){
+    .image-container{
+        display: none;
+    }
+    .welcome{
+        margin: 70px;
+    }
+    .welcome h1{
+        text-align: center;
+    }
+}

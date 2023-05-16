@@ -113,7 +113,6 @@ app.get('/preguntas', checkAuthenticated, async (req, res) => {
     const pregunta = await client.db("oritest").collection("cuestionarios").findOne({"preguntas.pregunta_id": nump.toString()}, {"preguntas.$": 1});
     if (pregunta && pregunta.preguntas && pregunta.preguntas.length > 0) {
       var p = pregunta.preguntas[0].texto;
-      console.log(p);
       res.render('preguntas.ejs', {numpregunta: nump,pregunta: p});
     } else {
       // Manejar el caso en que la pregunta no existe
@@ -127,10 +126,17 @@ app.get('/preguntas', checkAuthenticated, async (req, res) => {
   });
 
 app.post('/preguntas', checkAuthenticated, async (req,res) => {
+  
   var npreg = req.body.nump;
+  const pre = await client.db("oritest").collection("cuestionarios").findOne({ "preguntas.pregunta_id": npreg.toString()});
+  var numbase = npreg;
+  var areaP=pre.preguntas[numbase-1].area; 
+  const respuesta = req.body.respuesta;
+  await sendAnswer(client,numbase,req.user.id,respuesta,areaP);
+  
   npreg++;
+    if(npreg<=98){
   try {
-    console.log(npreg);
     const pregunta = await client.db("oritest").collection("cuestionarios").findOne({ "preguntas.pregunta_id": npreg.toString()});
     if (pregunta && pregunta.preguntas && pregunta.preguntas.length > 0) {
       var m = pregunta.preguntas[npreg-1].texto;
@@ -143,9 +149,23 @@ app.post('/preguntas', checkAuthenticated, async (req,res) => {
     // Manejar la excepción
     console.error(e);
     res.send("Error al obtener la pregunta");
-  } 
+  }
+}
+else{
+  calcularRes(client,res,req);
+}
+  
+  
 });
 
+
+
+
+
+
+app.get('/resultados',checkAuthenticated,async (req,res) =>{
+  calcularRes(client,res,req);
+});
 
 
 
@@ -176,7 +196,218 @@ app.post('/preguntas', checkAuthenticated, async (req,res) => {
     const result = await client.db("oritest").collection("users").insertOne(newUser);
     console.log(`New user created with the following id: ${result.insertedId}`);
   }
+
+  async function sendAnswer (client, preguntaid, userid, respuesta,areaP){
+    const newAnswer = {
+      respuesta: respuesta,
+      preguntaid: preguntaid,
+      userid: userid,
+      areaP: areaP
+    };
+    console.log(newAnswer);
+    const result = await client.db("oritest").collection("respuestas").insertOne(newAnswer);
+  }
   
+async function calcularRes (client,res,req){
+
+  const interesesResulta = {
+    iAdministrativa:{
+      area: "Administrativa",
+      subAreas: ["Organización","Supervisión","Orden","Análisis y síntesis","Colaboración","Cálculo"],
+      aptitudes: ["Persuasivo","Objetivo","Práctico","Tolerante","Responsable","Ambicioso"]
+    },
+    iHumanidades:{
+      area: "de Humanidades y Juridicas",
+      subAreas: ["Precisión Verbal","Organización","Lingüística","Orden","Justicia"],
+      aptitudes:["Responsable","Justo","Conciliador","Persuasivo","Imaginativo"]
+    },
+    iArtistica:{
+      area: "Artistica",
+      subAreas:["Estético","Armónico","Manual","Visual","Auditivo"],
+      aptitudes: ["Sensible","Imaginativo","Creativo","Detallista","Innovador","Intuitivo"]
+    },
+    iSalud:{
+      area:"de Ciencias de la Salud",
+      subAreas:["Asistir","Investigar","Precisión","Percepción","Análisis","Ayudar"],
+      aptitudes:["Altruista","Solidario","Paciente","Comprensivo","Respetuoso","Persuasivo"]
+    },
+    iEnsenanza:{
+      area:"de Enseñanzas Tecnicas",
+      subAreas:["Cálculo","Científico","Manual","Exactitud","Planificar"],
+      aptitudes:["Preciso","Práctico","Crítico","Analítico","Rígido"]
+    },
+    iDefensa:{
+      area:"de Defenza y Seguridad",
+      subAreas:["Justicia","Equidad","Colaboración","Espíritu de equipo","Liderazgo"],
+      aptitudes: ["Arriesgado","Solidario","Valiente","Agresivo","Persuasivo"]
+    },
+    iCiencias:{
+      area:"de Ciencias experimentales",
+      subAreas: ["Investigación","Orden","Organización","Análisis y Síntesis","Cálculo numérico","Clasificar"],
+      aptitudes:["Metódico","Analítico","Observador","Introvertido","Paciente","Seguro"]
+    }
+  };
+
+
+  const aptitudResulta = {
+    aAdministrativa:{
+      area: "Administrativa",
+      subAreas: ["Organización","Supervisión","Orden","Análisis y síntesis","Colaboración","Cálculo"],
+      aptitudes: ["Persuasivo","Objetivo","Práctico","Tolerante","Responsable","Ambicioso"]
+    },
+    aHumanidades:{
+      area: "de Humanidades y Juridicas",
+      subAreas: ["Precisión Verbal","Organización","Lingüística","Orden","Justicia"],
+      aptitudes:["Responsable","Justo","Conciliador","Persuasivo","Imaginativo"]
+    },
+    aArtistica:{
+      area: "Artistica",
+      subAreas:["Estético","Armónico","Manual","Visual","Auditivo"],
+      aptitudes: ["Sensible","Imaginativo","Creativo","Detallista","Innovador","Intuitivo"]
+    },
+    aSalud:{
+      area:"de Ciencias de la Salud",
+      subAreas:["Asistir","Investigar","Precisión","Percepción","Análisis","Ayudar"],
+      aptitudes:["Altruista","Solidario","Paciente","Comprensivo","Respetuoso","Persuasivo"]
+    },
+    aEnsenanza:{
+      area:"de Enseñanzas Tecnicas",
+      subAreas:["Cálculo","Científico","Manual","Exactitud","Planificar"],
+      aptitudes:["Preciso","Práctico","Crítico","Analítico","Rígido"]
+    },
+    aDefensa:{
+      area:"de Defenza y Seguridad",
+      subAreas:["Justicia","Equidad","Colaboración","Espíritu de equipo","Liderazgo"],
+      aptitudes: ["Arriesgado","Solidario","Valiente","Agresivo","Persuasivo"]
+    },
+    aCiencias:{
+      area:"de Ciencias experimentales",
+      subAreas: ["Investigación","Orden","Organización","Análisis y Síntesis","Cálculo numérico","Clasificar"],
+      aptitudes:["Metódico","Analítico","Observador","Introvertido","Paciente","Seguro"]
+    }
+  };
+
+
+
+
+  const iAdministrativa = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "IC", respuesta: "si",userid: req.user.id });
+  console.log('IC '+iAdministrativa);
+
+  const iHumanidades = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "IH", respuesta: "si",userid: req.user.id });
+  console.log('IH '+iHumanidades);
+
+  const iArtistica = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "IA", respuesta: "si",userid: req.user.id });
+  console.log('IA '+iArtistica);
+
+  const iSalud = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "IS", respuesta: "si",userid: req.user.id });
+  console.log('IS '+iSalud);
+
+  const iEnsenanza = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "II", respuesta: "si",userid: req.user.id });
+  console.log('II '+iEnsenanza);
+  
+  const iDefensa = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "ID", respuesta: "si",userid: req.user.id });
+  console.log('ID '+iDefensa);
+
+  const iCiencias = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "IE", respuesta: "si",userid: req.user.id });
+  console.log('IE '+iCiencias);
+
+//----------------APTITUDES-----------------------------------------------
+const aAdministrativa = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "AC", respuesta: "si",userid: req.user.id });
+  console.log('AC '+aAdministrativa);
+
+  const aHumanidades = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "AH", respuesta: "si",userid: req.user.id });
+  console.log('AH '+aHumanidades);
+
+  const aArtistica = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "AA", respuesta: "si",userid: req.user.id });
+  console.log('AA '+aArtistica);
+
+  const aSalud = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "AS", respuesta: "si",userid: req.user.id });
+  console.log('AS '+aSalud);
+
+  const aEnsenanza = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "AI", respuesta: "si",userid: req.user.id });
+  console.log('AI '+aEnsenanza);
+  
+  const aDefensa = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "AD", respuesta: "si",userid: req.user.id });
+  console.log('AD '+aDefensa);
+
+  const aCiencias = await client.db("oritest").collection("respuestas").countDocuments({ areaP: "AE", respuesta: "si",userid: req.user.id });
+  console.log('AE '+aCiencias);
+
+var variables = {iAdministrativa, iHumanidades, iArtistica, iSalud, iEnsenanza, iDefensa, iCiencias}
+var max = -Infinity;
+var variablesMasAltas = [];
+var variableMaxima = "";
+
+// Iterar sobre las propiedades del objeto variables
+for (var variable in variables) {
+  var valorActual = variables[variable];
+
+  if (valorActual > max) {
+    max = valorActual;
+    variablesMasAltas = [{ nombre: variable, valor: valorActual }];
+    variableMaxima = variable;
+  } else if (valorActual === max) {
+    variablesMasAltas.push({ nombre: variable, valor: valorActual });
+  }
+}
+
+console.log("El valor máximo de intereses es: " + max);
+console.log("Variable de intereses con el valor máximo: " + variableMaxima);
+
+if (variablesMasAltas.length > 1) {
+  console.log("Variables de intereses con el mismo valor máximo:");
+  variablesMasAltas.forEach(function (variable) {
+    console.log(variable.nombre + ": " + variable.valor);
+  });
+}
+
+
+//res.render('resultados.ejs', { respuestass: variablesMasAltass, variableMaximaa: variableMaximaa, aptitudesResulta: aptitudesResulta });
+
+
+//-------------------------Aptitudes-------------------------
+// Iterar sobre las propiedades del objeto variables
+var variabless = {aAdministrativa, aHumanidades, aArtistica, aSalud, aEnsenanza, aDefensa, aCiencias}
+var maxx = -Infinity;
+var variablesMasAltass = [];
+var variableMaximaa = "";
+
+for (var variablee in variabless) {
+  var valorActuall = variabless[variablee];
+
+  if (valorActuall > maxx) {
+    maxx = valorActuall;
+    variablesMasAltass = [{ nombre: variablee, valor: valorActuall }];
+    variableMaximaa = variablee;
+  } else if (valorActuall === maxx) {
+    variablesMasAltass.push({ nombre: variablee, valor: valorActuall });
+  }
+}
+
+console.log("El valor máximo de aptitudes es: " + maxx);
+console.log("Variable de aptitudes con el valor máximo: " + variableMaximaa);
+
+if (variablesMasAltass.length > 1) {
+  console.log("Variables de aptitudes con el mismo valor máximo:");
+  variablesMasAltass.forEach(function (variablee) {
+    console.log(variablee.nombre + ": " + variablee.valor);
+  });
+}
+
+if (max === 0 && maxx === 0){
+  res.render('resultadosNull.ejs');
+}
+
+res.render('resultados.ejs', { 
+  respuestas: variablesMasAltas, 
+  variableMaxima: variableMaxima, 
+  interesesResulta: interesesResulta, 
+  variablesAptitudes: variablesMasAltass,
+  aptitudesResulta: aptitudResulta
+});
+
+}
+
 
 
   

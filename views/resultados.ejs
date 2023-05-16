@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/resultados.css">
+    <title>orientaTest</title>
+</head>
+<body>
+    <div class="login-screen">
+        <div class="main-container">
+            <div class="image-container">
+                <div class="rectangle"> 
+                    <div class="arrowback">
+                        <div class="bb">
+                            <a href="/">
+                                <img src="https://cdn-icons-png.flaticon.com/512/507/507257.png" alt="">
+                            </a>
+                            <div class="tstChaside">
+                                <p>Resultados</p>
+                            </div>
+                        </div>
+
+                        <div class="tstInfo">
+                            
+                            <% if (respuestas.length > 1) { %>
+                                <div class="intereses-multiples">
+                                  <% respuestas.forEach(function (variable) { %>
+                                    <div class="interes">
+                                      <div class="containerInfo">
+                                        <div class="area">
+                                          <p><%='Area '+ interesesResulta[variable.nombre].area %></p>
+                                        </div>
+                                        <div class="areasinfo">
+                                            <p>Intereses:</p>
+                                          <ul>
+                                            
+                                            <% interesesResulta[variable.nombre].subAreas.forEach(function(subArea) { %>
+                                              <li><%= subArea %></li>
+                                            <% }); %>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  <% }); %>
+                                </div>
+                              <% } else { %>
+                                <div class="containerInfo">
+                                  <div class="area">
+                                    <p><%= interesesResulta[respuestas[0].nombre].area %></p>
+                                  </div>
+                                  <div class="areasinfo">
+                                    <p>Intereses:</p>
+                                    <ul>
+                                        
+                                      <% interesesResulta[respuestas[0].nombre].subAreas.forEach(function(subArea) { %>
+                                        <li><%= subArea %></li>
+                                      <% }); %>
+                                    </ul>
+                                  </div>
+                                </div>
+                              <% } %>
+                              
+
+
+                              <% if (variablesAptitudes.length > 1) { %>
+                                <div class="intereses-multiples">
+                                  <% variablesAptitudes.forEach(function (variable) { %>
+                                    <div class="interes">
+                                      <div class="containerInfo">
+                                        <div class="area">
+                                          <p><%='Area '+ aptitudesResulta[variable.nombre].area %></p>
+                                        </div>
+                                        <div class="areasinfo">
+                                            <p>Aptitudes:</p>
+                                          <ul>
+                                            
+                                            <% aptitudesResulta[variable.nombre].aptitudes.forEach(function(subArea) { %>
+                                              <li><%= subArea %></li>
+                                            <% }); %>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  <% }); %>
+                                </div>
+                              <% } else { %>
+                                <div class="containerInfo">
+                                  <div class="area">
+                                    <p><%= aptitudesResulta[variablesAptitudes[0].nombre].area %></p>
+                                  </div>
+                                  <div class="areasinfo">
+                                    <p>Aptitudes:</p>
+                                    <ul>
+                                        
+                                      <% aptitudesResulta[variablesAptitudes[0].nombre].aptitudes.forEach(function(subArea) { %>
+                                        <li><%= subArea %></li>
+                                      <% }); %>
+                                    </ul>
+                                  </div>
+                                </div>
+                              <% } %>
+
+                        <div class="relleno"></div>
+                    </div>
+                </div>                     
+            </div>
+            
+
+        </div>
+    </div>
+</body>
+</html>
